@@ -6,7 +6,7 @@
 #    By: ajemraou <ajemraou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/24 17:11:32 by ajemraou          #+#    #+#              #
-#    Updated: 2023/03/25 15:16:23 by ajemraou         ###   ########.fr        #
+#    Updated: 2023/03/27 23:07:09 by ajemraou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,9 @@ build:
 	@docker-compose -f ./srcs/docker-compose.yml build
 
 run:
+ifeq ($(wildcar /home/ajemraou/mysql),)
+	@mkdir -p /home/ajemraou/mysql
+endif
 	@docker-compose -f ./srcs/docker-compose.yml up -d
 	
 down:
@@ -57,12 +60,12 @@ else
 endif
 
 fclean: clean
-ifneq ($(wildcard /Users/ajemraou/Desktop/volumes/wordpress),)
-	@rm -rf /Users/ajemraou/Desktop/volumes/wordpress
+ifneq ($(wildcard /home/ajemraou/wordpress),)
+	@rm -rf /home/ajemraou/wordpress
 endif
 
-ifneq ($(wildcard /Users/ajemraou/Desktop/volumes/mysql),)
-	@rm -rf /Users/ajemraou/Desktop/volumes/mysql
+ifneq ($(wildcard /home/ajemraou/mysql),)
+	@rm -rf /home/ajemraou/mysql
 endif
 
 re:  fclean build run

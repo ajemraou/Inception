@@ -5,6 +5,7 @@ curl -o ./wordpress.tar.gz -SL https://wordpress.org/latest.tar.gz \
     && rm ./wordpress.tar.gz \
 
 mv ./wp-config-sample.php /var/www/html/wordpress/wp-config-sample.php
+# mv ./wp-config.php /var/www/html/wordpress
 
 mkdir -p /run/php
 
