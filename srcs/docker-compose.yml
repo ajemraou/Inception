@@ -16,7 +16,7 @@ services:
     env_file:
       - ./.env
     volumes:
-      - /home/ajemraou/wordpress:/var/www/html
+      - wordpress_vol:/var/www/html
     networks:
       - my-network
 #wordpress Service
@@ -34,7 +34,7 @@ services:
     env_file:
      - ./.env
     volumes:
-     - /home/ajemraou/wordpress:/var/www/html
+     - wordpress_vol:/var/www/html
     networks:
       - my-network
 #Database Service
@@ -53,14 +53,21 @@ services:
        - mariadb_vol:/var/lib/mysql
    networks:
     - my-network
+#Volumes
 volumes:
   wordpress_vol:
+    driver: local
+    driver_opts:
+        type: none
+        device: /home/ajemraou/data/wordpress
+        o: bind
   mariadb_vol:
     driver: local
     driver_opts:
         type: none
-        device: /home/ajemraou/mysql
+        device: /home/ajemraou/data/mysql
         o: bind
+#Networks
 networks:
   my-network:
     driver: bridge
