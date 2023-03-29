@@ -8,8 +8,4 @@ RUN chmod +x ./wordpress.sh
 
 COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/www.conf
 
-COPY ./conf/wp-config-sample.php ./
-
-# COPY ./conf/wp-config.php ./
-
 CMD ["./wordpress.sh"]

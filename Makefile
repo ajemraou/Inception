@@ -6,12 +6,12 @@
 #    By: ajemraou <ajemraou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/24 17:11:32 by ajemraou          #+#    #+#              #
-#    Updated: 2023/03/28 17:37:03 by ajemraou         ###   ########.fr        #
+#    Updated: 2023/03/29 01:04:08 by ajemraou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CONTAINER_IDS:= $(shell docker ps -qa)
-IMAGE_IDS:= $(shell docker images -aq)
+IMAGE_IDS:= $(shell docker images -q)
 VOLUME_IDS:= $(shell docker volume ls -q)
 NETWORK_IDS:= $(shell docker network ls --filter "type=custom" -q)
 
