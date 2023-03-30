@@ -1,0 +1,73 @@
+version: '3'
+
+services:
+#nginx Service
+  nginx:
+    depends_on:
+    - wordpress
+    build:
+     context: ./requirements/nginx
+     dockerfile: Dockerfile
+    container_name: nginx
+    image: nginx
+    restart: always
+    ports:
+    - "443:443"
+    env_file:
+      - ./.env
+    volumes:
+      - wordpress_vol:/var/www/html
+    networks:
+      - my-network
+#wordpress Service
+  wordpress:
+    depends_on:
+    - mariadb
+    build:
+     context: ./requirements/wordpress
+     dockerfile: Dockerfile
+    container_name: wordpress
+    image: wordpress
+    restart: always
+    ports:
+     - "9000:9000"
+    env_file:
+     - ./.env
+    volumes:
+     - wordpress_vol:/var/www/html
+    networks:
+      - my-network
+#Database Service
+  mariadb:
+   build:
+    context: ./requirements/mariadb
+    dockerfile: Dockerfile
+   container_name: mariadb
+   image: mariadb
+   restart: always
+   env_file:
+      - ./.env
+   ports:
+    -  "3306:3306"
+   volumes:
+       - mariadb_vol:/var/lib/mysql
+   networks:
+    - my-network
+#Volumes
+volumes:
+  wordpress_vol:
+    driver: local
+    driver_opts:
+        type: none
+        device: /home/ajemraou/data/wordpress
+        o: bind
+  mariadb_vol:
+    driver: local
+    driver_opts:
+        type: none
+        device: /home/ajemraou/data/mysql
+        o: bind
+#Networks
+networks:
+  my-network:
+    driver: bridge
