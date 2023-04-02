@@ -7,8 +7,10 @@ echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD' ;" >> f
 echo "FLUSH PRIVILEGES;" >> file
 
 service mysql start
+
 <file mysql
 rm file
-service mysql stop
+
+kill $(cat /var/run/mysqld/mysqld.pid)
 
 mysqld
