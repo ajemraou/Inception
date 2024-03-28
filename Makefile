@@ -19,12 +19,8 @@ build:
 	@docker-compose -f ./srcs/docker-compose.yml build
 
 run:
-ifeq ($(wildcar /home/ajemraou/data/mysql),)
-	@mkdir -p /home/ajemraou/data/mysql
-endif
-ifeq ($(wildcar /home/ajemraou/data/wordpress),)
-	@mkdir -p /home/ajemraou/data/wordpress
-endif
+	@mkdir -p ./data/mysql
+	@mkdir -p ./data/wordpress
 	@docker-compose -f ./srcs/docker-compose.yml up -d
 	
 down:
@@ -63,12 +59,9 @@ else
 endif
 
 fclean: clean
-ifneq ($(wildcard /home/ajemraou/data/wordpress),)
-	@rm -rf /home/ajemraou/data/wordpress
-endif
-
-ifneq ($(wildcard /home/ajemraou/data/mysql),)
-	@rm -rf /home/ajemraou/data/mysql
-endif
+	@rm -rf ./data/wordpress
+	@rm -rf ./data/mysql
 
 re:  fclean build run
+
+.PHONY: build run down stop clean fclean re
