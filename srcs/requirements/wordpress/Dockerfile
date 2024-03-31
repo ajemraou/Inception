@@ -1,6 +1,8 @@
 FROM debian:buster
 
-RUN apt update && apt install -y curl && apt install -y wordpress && apt install -y php-fpm
+RUN apt update 
+
+RUN apt install -y curl wordpress php-fpm
 
 COPY ./tools/wordpress.sh .
 
